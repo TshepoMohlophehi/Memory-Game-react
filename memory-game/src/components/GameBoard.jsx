@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { generateGrid } from '../utils/generateGrid';
 import Card from './Card';
 
-export default function GameBoard() {
+export default function GameBoard({ setGameState}) {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
+
+
 
   useEffect(() => {
     setCards(generateGrid());
@@ -13,6 +15,7 @@ export default function GameBoard() {
 
   const handleClick = (index) => {
     if (flipped.length === 2 || flipped.includes(index) || matched.includes(index)) return;
+    if (flipped.length === 0) setGameState('waiting');
 
     const newFlipped = [...flipped, index];
     setFlipped(newFlipped);
@@ -21,10 +24,28 @@ export default function GameBoard() {
       const [first, second] = newFlipped;
       if (cards[first] === cards[second]) {
         setMatched((prev) => [...prev, first, second]);
+        setGameState('match');
+
+        setTimeout(() => {
+          setFlipped([]);
+          setGameState('waiting');
+        }, 2000)
+      } else {
+        setGameState('no-match');
+
+        setTimeout(() => {
+          setFlipped([])
+          setGameState('waiting');
+
+        }, 2000)
+
+
+        
       }
 
       setTimeout(() => {
         setFlipped([]);
+        setGameState('waiting');
       }, 1000);
     }
   };
