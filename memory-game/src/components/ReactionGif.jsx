@@ -10,7 +10,7 @@ const feedbackMap = {
       },
       match: {
         gif: matchGif,
-        message: "🎉 Matched!"
+        message: "🎉🎉🎉🎉🎉🎉 Matched!"
       },
       'no-match': {
         gif: noMatchGif,
