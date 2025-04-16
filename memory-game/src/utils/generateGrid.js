@@ -1,4 +1,4 @@
-const emojiList = ['🐶','🐱','🐭','🐹','🦊','🐻','🐼','🐨'];
+const emojiList = ['🍎', '🍌', '🍇', '🍉', '🍒', '🍓', '🍍', '🥝'];
 
 export function generateGrid() {
   const pairs = [...emojiList, ...emojiList]; 
