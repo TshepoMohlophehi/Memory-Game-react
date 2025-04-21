@@ -17,7 +17,7 @@ export default function Card({ emoji, isFlipped, onClick }) {
         cursor: 'pointer'
       }}
     >
-      {isFlipped ? emoji : '❓'}
+      {isFlipped ? emoji : ' '}
     </div>
   );
 }

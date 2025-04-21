@@ -6,6 +6,7 @@ export default function GameBoard({ setGameState }) {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
+  const [showCongrats, setShowCongrats] = useState(false);
 
   useEffect(() => {
     setCards(generateGrid());
@@ -15,9 +16,11 @@ export default function GameBoard({ setGameState }) {
     if (
       flipped.length === 2 ||
       flipped.includes(index) ||
-      matched.includes(index)
+      matched.includes(index) ||
+      showCongrats
     )
       return;
+
     if (flipped.length === 0) setGameState("waiting");
 
     const newFlipped = [...flipped, index];
@@ -25,13 +28,26 @@ export default function GameBoard({ setGameState }) {
 
     if (newFlipped.length === 2) {
       const [first, second] = newFlipped;
+
       if (cards[first] === cards[second]) {
-        setMatched((prev) => [...prev, first, second]);
+        const newMatched = [...matched, first, second];
+        setMatched(newMatched);
         setGameState("match");
 
         setTimeout(() => {
           setFlipped([]);
-          setGameState("waiting");
+          if (newMatched.length === cards.length) {
+            setShowCongrats(true);
+            setTimeout(() => {
+              setShowCongrats(false);
+              setMatched([]);
+              setFlipped([]);
+              setCards(generateGrid());
+              setGameState("waiting");
+            }, 3000);
+          } else {
+            setGameState("waiting");
+          }
         }, 2000);
       } else {
         setGameState("no-match");
@@ -41,32 +57,42 @@ export default function GameBoard({ setGameState }) {
           setGameState("waiting");
         }, 2000);
       }
-
-      setTimeout(() => {
-        setFlipped([]);
-        setGameState("waiting");
-      }, 2000);
     }
   };
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(4, 80px)",
-        gap: "10px",
-        justifyContent: "center",
-        paddingTop: "20px",
-      }}
-    >
-      {cards.map((emoji, index) => (
-        <Card
-          key={index}
-          emoji={emoji}
-          isFlipped={flipped.includes(index) || matched.includes(index)}
-          onClick={() => handleClick(index)}
-        />
-      ))}
-    </div>
+    <>
+      {showCongrats && (
+        <div
+          style={{
+            textAlign: "center",
+            fontSize: "24px",
+            fontWeight: "bold",
+            color: "#2e7d32",
+            marginBottom: "20px",
+          }}
+        >
+          🎉 Congratulations! You matched all the fruits!
+        </div>
+      )}
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(4, 80px)",
+          gap: "10px",
+          justifyContent: "center",
+          paddingTop: "20px",
+        }}
+      >
+        {cards.map((emoji, index) => (
+          <Card
+            key={index}
+            emoji={emoji}
+            isFlipped={flipped.includes(index) || matched.includes(index)}
+            onClick={() => handleClick(index)}
+          />
+        ))}
+      </div>
+    </>
   );
 }
