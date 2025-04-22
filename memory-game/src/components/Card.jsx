@@ -4,6 +4,7 @@ export default function Card({ emoji, isFlipped, onClick }) {
   return (
     <div
       className="card"
+      role="button"
       onClick={onClick}
       style={{
         width: '80px',

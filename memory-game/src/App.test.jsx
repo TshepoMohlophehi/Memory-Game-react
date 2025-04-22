@@ -1,7 +1,7 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
 
-describe('Emoji Memory Game', () => {
+describe('Memory Game', () => {
   test('renders the game title and 16 cards', () => {
     render(<App />);
     expect(screen.getByText(/Memory Game/i)).toBeInTheDocument();
@@ -15,10 +15,10 @@ describe('Emoji Memory Game', () => {
     const cards = screen.getAllByRole('button');
     const firstCard = cards[0];
 
-    expect(firstCard.textContent).toBe('');
+    expect(firstCard.textContent).toBe(' ');
 
     fireEvent.click(firstCard);
-    expect(firstCard.textContent).not.toBe('');
+    expect(firstCard.textContent).not.toBe(' ');
   });
 
   test('matches two cards with same emoji', async () => {
@@ -32,11 +32,11 @@ describe('Emoji Memory Game', () => {
         fireEvent.click(cards[i]);
         fireEvent.click(cards[j]);
 
-        if (cards[i].textContent !== '' && cards[i].textContent === cards[j].textContent) {
+        if (cards[i].textContent !== ' ' && cards[i].textContent === cards[j].textContent) {
           matched = true;
           await waitFor(() => {
-            expect(cards[i].textContent).not.toBe('');
-            expect(cards[j].textContent).not.toBe('');
+            expect(cards[i].textContent).not.toBe(' ');
+            expect(cards[j].textContent).not.toBe(' ');
           });
         } else {
           await waitFor(() => {
