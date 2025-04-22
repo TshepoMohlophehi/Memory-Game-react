@@ -25,7 +25,7 @@ describe('Memory Game', () => {
     render(<App />);
     const cards = screen.getAllByRole('button');
 
-    // Brute force: Click until match is found
+ 
     let matched = false;
     for (let i = 0; i < cards.length && !matched; i++) {
       for (let j = i + 1; j < cards.length && !matched; j++) {
