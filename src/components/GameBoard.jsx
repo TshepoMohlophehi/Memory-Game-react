@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { generateGrid } from "../utils/generateGrid";
 import Card from "./Card";
 
@@ -60,6 +60,14 @@ export default function GameBoard({ setGameState }) {
     }
   };
 
+  const resetGame = () => {
+    setFlipped([]);
+    setMatched([]);
+    setCards(generateGrid());
+    setShowCongrats(false);
+    setGameState("waiting");
+  };
+
   return (
     <>
       {showCongrats && (
@@ -75,6 +83,7 @@ export default function GameBoard({ setGameState }) {
           🎉 Congratulations! You matched all the fruits!
         </div>
       )}
+
       <div
         style={{
           display: "grid",
@@ -93,6 +102,28 @@ export default function GameBoard({ setGameState }) {
           />
         ))}
       </div>
+
+      <div style={{ display: "flex",flexDirection: "row", justifyContent: "center", textAlign: "center",  }}>
+        <button
+          onClick={resetGame}
+          style={{
+            padding: "10px 20px",
+            fontSize: "16px",
+            backgroundColor: "#1976d2",
+            color: "#fff",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer",
+          }}
+          data-testid="restart-button"
+        >
+          Restart Game 🔄
+        </button>
+      </div>
+
+      
+
+
     </>
   );
 }

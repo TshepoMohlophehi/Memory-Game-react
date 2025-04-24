@@ -1,4 +1,3 @@
-import React from 'react';
 import waitingGif from '../assets/waitReaction.gif';
 import matchGif from '../assets/winReaction.gif';
 import noMatchGif from '../assets/loseReaction.gif';
@@ -21,7 +20,7 @@ const feedbackMap = {
 export default function ReactionGif({ gameState }) {
     const feedback = feedbackMap[gameState]
   return (
-    <div style={{ width: '250px', height: '250px', marginTop: '50px'}}>
+    <div style={{ width: '250px', height: '250px', marginTop: '50px', position: 'relative', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
       <img
         src={feedback.gif}
         alt={gameState}

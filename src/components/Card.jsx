@@ -1,5 +1,3 @@
-import React from 'react';
-
 export default function Card({ emoji, isFlipped, onClick }) {
   return (
     <div
