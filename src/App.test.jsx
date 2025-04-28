@@ -96,4 +96,32 @@ describe('Memory Game', () => {
       expect(message).toBeInTheDocument();
     });
   });
+
+  test('restart button resets the game', async () => {
+    render(<App />);
+  
+    const cards = screen.getAllByTestId('card');
+    const firstCard = cards[0];
+    userEvent.click(firstCard);
+  
+    // Card should now be flipped (emoji visible)
+    await waitFor(() => {
+      expect(firstCard.textContent).not.toBe(' ');
+    });
+  
+    // Click restart
+    const restartButton = screen.getByTestId('restart-button');
+    userEvent.click(restartButton);
+  
+    // All cards should be unflipped (text content should be empty string or space)
+    await waitFor(() => {
+      const refreshedCards = screen.getAllByTestId('card');
+      refreshedCards.forEach(card => {
+        expect(card.textContent).toBe(' ');
+      });
+    });
+  });
+
+
+
 });
