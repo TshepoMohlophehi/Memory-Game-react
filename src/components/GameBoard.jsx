@@ -103,7 +103,14 @@ export default function GameBoard({ setGameState }) {
         ))}
       </div>
 
-      <div style={{ display: "flex",flexDirection: "row", justifyContent: "center", textAlign: "center",  }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "center",
+          textAlign: "center",
+        }}
+      >
         <button
           onClick={resetGame}
           style={{
@@ -120,10 +127,6 @@ export default function GameBoard({ setGameState }) {
           Restart Game 🔄
         </button>
       </div>
-
-      
-
-
     </>
   );
 }
