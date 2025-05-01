@@ -80,7 +80,7 @@ export default function GameBoard({ setGameState }) {
             marginBottom: "20px",
           }}
         >
-          🎉 Congratulations! You matched all the fruits!
+          {setGameState("win")};
         </div>
       )}
 

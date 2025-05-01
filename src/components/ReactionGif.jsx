@@ -14,7 +14,10 @@ const feedbackMap = {
       'no-match': {
         gif: noMatchGif,
         message: "😬 Not Matched!"
-      }
+      },
+      win: {
+        message: "🎉 Congratulations! You matched all the fruits!"
+      },
 };
 
 export default function ReactionGif({ gameState }) {
