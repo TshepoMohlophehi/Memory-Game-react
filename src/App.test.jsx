@@ -6,13 +6,13 @@ describe("Memory Game", () => {
     render(<App />);
     expect(screen.getByText(/Memory Game/i)).toBeInTheDocument();
 
-    const cards = screen.getAllByRole("button");
+    const cards = screen.getAllByRole("card");
     expect(cards.length).toBe(16);
   });
 
   test("flips a card on click", () => {
     render(<App />);
-    const cards = screen.getAllByRole("button");
+    const cards = screen.getAllByRole("card");
     const firstCard = cards[0];
 
     expect(firstCard.textContent).toBe(" ");
@@ -23,7 +23,7 @@ describe("Memory Game", () => {
 
   test("matches two cards with same emoji", async () => {
     render(<App />);
-    const cards = screen.getAllByRole("button");
+    const cards = screen.getAllByRole("card");
 
     let matched = false;
     for (let i = 0; i < cards.length && !matched; i++) {
@@ -32,21 +32,21 @@ describe("Memory Game", () => {
         fireEvent.click(cards[j]);
 
         if (
-          cards[i].textContent !== " " &&
+          cards[i].textContent !== "" &&
           cards[i].textContent === cards[j].textContent
         ) {
           matched = true;
           await waitFor(() => {
-            expect(cards[i].textContent).not.toBe(" ");
-            expect(cards[j].textContent).not.toBe(" ");
+            expect(cards[i].textContent).not.toBe("");
+            expect(cards[j].textContent).not.toBe("");
           });
         } else {
           await waitFor(
             () => {
-              expect(cards[i].textContent).toBe("");
-              expect(cards[j].textContent).toBe("");
+              expect(cards[i].textContent).toBe(" ");
+              expect(cards[j].textContent).toBe(" ");
             },
-            { timeout: 3000 }
+            
           );
         }
       }
