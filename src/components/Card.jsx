@@ -3,6 +3,7 @@ export default function Card({ emoji, isFlipped, onClick }) {
     <div
       className="card"
       role="card"
+      data-testid="card"
       onClick={onClick}
       style={{
         width: '80px',

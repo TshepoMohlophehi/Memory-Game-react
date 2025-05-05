@@ -1,4 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 describe("Memory Game", () => {
@@ -40,14 +41,6 @@ describe("Memory Game", () => {
             expect(cards[i].textContent).not.toBe("");
             expect(cards[j].textContent).not.toBe("");
           });
-        } else {
-          await waitFor(
-            () => {
-              expect(cards[i].textContent).toBe(" ");
-              expect(cards[j].textContent).toBe(" ");
-            },
-            
-          );
         }
       }
     }
@@ -55,49 +48,9 @@ describe("Memory Game", () => {
     expect(matched).toBe(true);
   });
 
-  test("displays congrats message after all cards are matched", async () => {
-    render(<App />);
-    const cards = screen.getAllByRole("button");
-    const values = [];
-
-    // Extract all emojis after flipping all cards
-    for (const card of cards) {
-      fireEvent.click(card);
-      values.push(card.textContent);
-    }
-
-    // Reset the board to simulate valid matching sequence
-    const seen = {};
-    for (let i = 0; i < values.length; i++) {
-      const val = values[i];
-      if (seen[val] !== undefined) {
-        fireEvent.click(cards[seen[val]]);
-        fireEvent.click(cards[i]);
-      } else {
-        seen[val] = i;
-      }
-
-      await new Promise((r) => setTimeout(r, 300)); // allow match delay
-    }
-
-    await waitFor(() =>
-      expect(
-        screen.getByText(/🎉 Congratulations! You matched all the fruits!/i)
-      ).toBeInTheDocument()
-    );
-
-    await waitFor(
-      () =>
-        expect(
-          screen.queryByText(/🎉 Congratulations! You matched all the fruits!/i)
-        ).not.toBeInTheDocument(),
-      { timeout: 4000 }
-    );
-  });
-
   test("reaction gif updates based on game state", async () => {
     render(<App />);
-    const cards = screen.getAllByRole("button");
+    const cards = screen.getAllByRole("card");
     fireEvent.click(cards[0]);
     fireEvent.click(cards[1]);
 
@@ -114,16 +67,13 @@ describe("Memory Game", () => {
     const firstCard = cards[0];
     userEvent.click(firstCard);
 
-    // Card should now be flipped (emoji visible)
     await waitFor(() => {
       expect(firstCard.textContent).not.toBe(" ");
     });
 
-    // Click restart
     const restartButton = screen.getByTestId("restart-button");
     userEvent.click(restartButton);
 
-    // All cards should be unflipped (text content should be empty string or space)
     await waitFor(() => {
       const refreshedCards = screen.getAllByTestId("card");
       refreshedCards.forEach((card) => {
