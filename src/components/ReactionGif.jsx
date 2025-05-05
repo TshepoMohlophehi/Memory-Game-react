@@ -16,6 +16,7 @@ const feedbackMap = {
         message: "😬 Not Matched!"
       },
       win: {
+        gif: matchGif,
         message: "🎉 Congratulations! You matched all the fruits!"
       },
 };

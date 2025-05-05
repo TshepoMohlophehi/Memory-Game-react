@@ -38,12 +38,8 @@ export default function GameBoard({ setGameState }) {
           setFlipped([]);
           if (newMatched.length === cards.length) {
             setShowCongrats(true);
+            setGameState("win");
             setTimeout(() => {
-              setShowCongrats(false);
-              setMatched([]);
-              setFlipped([]);
-              setCards(generateGrid());
-              setGameState("waiting");
             }, 3000);
           } else {
             setGameState("waiting");
@@ -70,6 +66,7 @@ export default function GameBoard({ setGameState }) {
 
   return (
     <>
+    <div className="d-flex flex-column align-items-center justify-content-center">
       {showCongrats && (
         <div
           style={{
@@ -80,7 +77,7 @@ export default function GameBoard({ setGameState }) {
             marginBottom: "20px",
           }}
         >
-          {setGameState("win")};
+          {setGameState("win")}
         </div>
       )}
 
@@ -121,12 +118,15 @@ export default function GameBoard({ setGameState }) {
             border: "none",
             borderRadius: "6px",
             cursor: "pointer",
+            marginTop: "20px",
           }}
           data-testid="restart-button"
         >
           Restart Game 🔄
         </button>
       </div>
+      </div>
     </>
+    
   );
 }
