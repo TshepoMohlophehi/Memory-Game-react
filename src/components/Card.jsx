@@ -2,7 +2,7 @@ export default function Card({ emoji, isFlipped, onClick }) {
   return (
     <div
       className="card"
-      role="card"
+      role="button"
       data-testid="card"
       onClick={onClick}
       style={{

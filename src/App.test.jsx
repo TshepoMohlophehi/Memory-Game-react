@@ -7,13 +7,13 @@ describe("Memory Game", () => {
     render(<App />);
     expect(screen.getByText(/Memory Game/i)).toBeInTheDocument();
 
-    const cards = screen.getAllByRole("card");
+    const cards = screen.getAllByRole("button");
     expect(cards.length).toBe(16);
   });
 
   test("flips a card on click", () => {
     render(<App />);
-    const cards = screen.getAllByRole("card");
+    const cards = screen.getAllByRole("button");
     const firstCard = cards[0];
 
     expect(firstCard.textContent).toBe(" ");
@@ -50,7 +50,7 @@ describe("Memory Game", () => {
 
   test("reaction gif updates based on game state", async () => {
     render(<App />);
-    const cards = screen.getAllByRole("card");
+    const cards = screen.getAllByRole("button");
     fireEvent.click(cards[0]);
     fireEvent.click(cards[1]);
 
@@ -63,7 +63,7 @@ describe("Memory Game", () => {
   test("restart button resets the game", async () => {
     render(<App />);
 
-    const cards = screen.getAllByTestId("card");
+    const cards = screen.getAllByTestId("button");
     const firstCard = cards[0];
     userEvent.click(firstCard);
 
@@ -75,7 +75,7 @@ describe("Memory Game", () => {
     userEvent.click(restartButton);
 
     await waitFor(() => {
-      const refreshedCards = screen.getAllByTestId("card");
+      const refreshedCards = screen.getAllByTestId("button");
       refreshedCards.forEach((card) => {
         expect(card.textContent).toBe(" ");
       });
