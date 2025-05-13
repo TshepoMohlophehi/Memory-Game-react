@@ -73,7 +73,7 @@ describe("Memory Game", () => {
 
     const restartButton = screen.getByTestId("restart-button");
     userEvent.click(restartButton);
-
+//
     await waitFor(() => {
       const refreshedCards = screen.getAllByTestId("button");
       refreshedCards.forEach((card) => {
