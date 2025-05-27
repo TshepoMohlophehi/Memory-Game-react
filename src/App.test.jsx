@@ -62,7 +62,7 @@ describe("Memory Game", () => {
 
   test("restart button resets the game", async () => {
     render(<App />);
-
+//    const cards = screen.getAllByRole("button");
     const cards = screen.getAllByTestId("button");
     const firstCard = cards[0];
     userEvent.click(firstCard);
