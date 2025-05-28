@@ -6,6 +6,8 @@ export default function GameBoard({ setGameState }) {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
+  const [hasStarted, setHasStarted] = useState(false);
+
   const [showCongrats, setShowCongrats] = useState(false);
 
   useEffect(() => {
@@ -21,6 +23,8 @@ export default function GameBoard({ setGameState }) {
     )
       return;
 
+  
+    setHasStarted(true);
     if (flipped.length === 0) setGameState("waiting");
 
     const newFlipped = [...flipped, index];
@@ -108,7 +112,7 @@ export default function GameBoard({ setGameState }) {
           textAlign: "center",
         }}
       >
-        <button
+        { hasStarted && <button
           onClick={resetGame}
           style={{
             padding: "10px 20px",
@@ -121,9 +125,11 @@ export default function GameBoard({ setGameState }) {
             marginTop: "20px",
           }}
           data-testid="restart-button"
+          role="restart-button"
         >
-          Restart Game 🔄
+          {showCongrats ? "Play Again! 🎉" : "Restart Game 🔄"}
         </button>
+        }
       </div>
       </div>
     </>

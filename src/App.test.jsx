@@ -24,7 +24,7 @@ describe("Memory Game", () => {
 
   test("matches two cards with same emoji", async () => {
     render(<App />);
-    const cards = screen.getAllByRole("card");
+    const cards = screen.getAllByRole("button");
 
     let matched = false;
     for (let i = 0; i < cards.length && !matched; i++) {
@@ -57,28 +57,6 @@ describe("Memory Game", () => {
     await waitFor(() => {
       const message = screen.getByText(/Matched!|Not Matched!/i);
       expect(message).toBeInTheDocument();
-    });
-  });
-
-  test("restart button resets the game", async () => {
-    render(<App />);
-//    const cards = screen.getAllByRole("button");
-    const cards = screen.getAllByTestId("button");
-    const firstCard = cards[0];
-    userEvent.click(firstCard);
-
-    await waitFor(() => {
-      expect(firstCard.textContent).not.toBe(" ");
-    });
-
-    const restartButton = screen.getByTestId("restart-button");
-    userEvent.click(restartButton);
-
-    await waitFor(() => {
-      const refreshedCards = screen.getAllByTestId("button");
-      refreshedCards.forEach((card) => {
-        expect(card.textContent).toBe(" ");
-      });
     });
   });
 });

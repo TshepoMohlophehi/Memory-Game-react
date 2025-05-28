@@ -32,7 +32,7 @@ export default function ReactionGif({ gameState }) {
       />
 
       <h3 style={feedback.message === "Waiting for your move..." ? { marginTop: '10px', color: 'black', whiteSpace: 'nowrap'} : 
-      feedback.message === "😬 Not Matched!" ? { marginTop: '10px', color: 'red', whiteSpace: 'nowrap'} : { marginTop: '10px', color: 'green', whiteSpace: 'nowrap'}}> {feedback.message} </h3>
+      feedback.message === "😬 Not Matched!" ? { marginTop: '10px', color: 'red', whiteSpace: 'nowrap'} : { marginTop: '10px', color: 'green', textAlign:"center"}}> {feedback.message} </h3>
     </div>
   );
 }
