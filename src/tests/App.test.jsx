@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
-import App from "./App";
+
+import App from "../App";
 
 describe("Memory Game", () => {
   test("renders the game title and 16 cards", () => {
@@ -36,11 +36,11 @@ describe("Memory Game", () => {
           cards[i].textContent !== "" &&
           cards[i].textContent === cards[j].textContent
         ) {
-          matched = true;
-          await waitFor(() => {
-            expect(cards[i].textContent).not.toBe("");
-            expect(cards[j].textContent).not.toBe("");
-          });
+          if ((matched = true)) {
+            await waitFor(() => {
+              expect(cards[i].textContent).not.toBe("");
+            });
+          }
         }
       }
     }

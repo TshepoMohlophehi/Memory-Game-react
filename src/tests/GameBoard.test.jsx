@@ -1,5 +1,5 @@
 import { render, screen, fireEvent, waitFor } from "@testing-library/react";
-import GameBoard from "./components/GameBoard";
+import GameBoard from "../components/GameBoard";
 
 test("renders 16 cards", () => {
   render(<GameBoard setGameState={() => {}} />);

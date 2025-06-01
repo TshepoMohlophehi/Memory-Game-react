@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import Card from "./components/Card";
+import Card from "../components/Card";
 
 test("renders card with emoji when flipped", () => {
   render(<Card emoji="🍎" isFlipped={true} onClick={() => {}} />);

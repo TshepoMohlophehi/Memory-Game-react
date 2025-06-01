@@ -23,7 +23,6 @@ export default function GameBoard({ setGameState }) {
     )
       return;
 
-  
     setHasStarted(true);
     if (flipped.length === 0) setGameState("waiting");
 
@@ -43,8 +42,7 @@ export default function GameBoard({ setGameState }) {
           if (newMatched.length === cards.length) {
             setShowCongrats(true);
             setGameState("win");
-            setTimeout(() => {
-            }, 3000);
+            setTimeout(() => {}, 3000);
           } else {
             setGameState("waiting");
           }
@@ -70,69 +68,68 @@ export default function GameBoard({ setGameState }) {
 
   return (
     <>
-    <div className="d-flex flex-column align-items-center justify-content-center">
-      {showCongrats && (
+      <div className="d-flex flex-column align-items-center justify-content-center">
+        {showCongrats && (
+          <div
+            style={{
+              textAlign: "center",
+              fontSize: "24px",
+              fontWeight: "bold",
+              color: "#2e7d32",
+              marginBottom: "20px",
+            }}
+          >
+            {setGameState("win")}
+          </div>
+        )}
+
         <div
           style={{
-            textAlign: "center",
-            fontSize: "24px",
-            fontWeight: "bold",
-            color: "#2e7d32",
-            marginBottom: "20px",
+            display: "grid",
+            gridTemplateColumns: "repeat(4, 80px)",
+            gap: "10px",
+            justifyContent: "center",
+            paddingTop: "20px",
           }}
         >
-          {setGameState("win")}
+          {cards.map((emoji, index) => (
+            <Card
+              key={index}
+              emoji={emoji}
+              isFlipped={flipped.includes(index) || matched.includes(index)}
+              onClick={() => handleClick(index)}
+            />
+          ))}
         </div>
-      )}
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 80px)",
-          gap: "10px",
-          justifyContent: "center",
-          paddingTop: "20px",
-        }}
-      >
-        {cards.map((emoji, index) => (
-          <Card
-            key={index}
-            emoji={emoji}
-            isFlipped={flipped.includes(index) || matched.includes(index)}
-            onClick={() => handleClick(index)}
-          />
-        ))}
-      </div>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          textAlign: "center",
-        }}
-      >
-        { hasStarted && <button
-          onClick={resetGame}
+        <div
           style={{
-            padding: "10px 20px",
-            fontSize: "16px",
-            backgroundColor: "#1976d2",
-            color: "#fff",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer",
-            marginTop: "20px",
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "center",
+            textAlign: "center",
           }}
-          data-testid="restart-button"
-          role="restart-button"
         >
-          {showCongrats ? "Play Again! 🎉" : "Restart Game 🔄"}
-        </button>
-        }
-      </div>
+          {hasStarted && (
+            <button
+              onClick={resetGame}
+              style={{
+                padding: "10px 20px",
+                fontSize: "16px",
+                backgroundColor: "#1976d2",
+                color: "#fff",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer",
+                marginTop: "20px",
+              }}
+              data-testid="restart-button"
+            >
+              {showCongrats ? "Play Again! 🎉" : "Restart Game 🔄"}
+            </button>
+          )}
+        </div>
       </div>
     </>
-    
   );
 }

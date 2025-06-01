@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react";
-import ReactionGif from "./components/ReactionGif";
+import ReactionGif from "../components/ReactionGif";
 
 test.each([
   ["waiting", /Waiting for your move/i],
