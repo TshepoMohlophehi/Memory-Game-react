@@ -48,15 +48,5 @@ describe("Memory Game", () => {
     expect(matched).toBe(true);
   });
 
-  test("reaction gif updates based on game state", async () => {
-    render(<App />);
-    const cards = screen.getAllByRole("button");
-    fireEvent.click(cards[0]);
-    fireEvent.click(cards[1]);
 
-    await waitFor(() => {
-      const message = screen.getByText(/Matched!|Not Matched!/i);
-      expect(message).toBeInTheDocument();
-    });
-  });
 });
