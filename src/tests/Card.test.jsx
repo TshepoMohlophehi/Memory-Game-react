@@ -25,4 +25,3 @@ describe("Card component", () => {
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
-
