@@ -20,11 +20,9 @@ describe("ReactionGif component", () => {
     expect(screen.getByRole("img")).toBeInTheDocument();
   });
 
-  describe("when gameState is 'win'", () => {
-    it("should display the win message and image when the game is won", () => {
-      render(<ReactionGif gameState="win" />);
-      expect(screen.getByText(/Congratulations!/i)).toBeInTheDocument();
-      expect(screen.getByRole("img")).toBeInTheDocument();
-    });
+  it("should display the win message and image when the game is won", () => {
+    render(<ReactionGif gameState="win" />);
+    expect(screen.getByText(/Congratulations!/i)).toBeInTheDocument();
+    expect(screen.getByRole("img")).toBeInTheDocument();
   });
 });
