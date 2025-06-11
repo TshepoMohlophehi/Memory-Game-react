@@ -24,9 +24,12 @@ describe("App component", () => {
     expect(firstCard.textContent).not.toBe(" ");
 
     // Wait and ensure it’s still visible (not flipped back)
-    await waitFor(() => {
-      expect(firstCard.textContent).not.toBe(" ");
-    }, { timeout: 2500 });
+    await waitFor(
+      () => {
+        expect(firstCard.textContent).not.toBe(" ");
+      },
+      { timeout: 2500 }
+    );
   });
 
   it("should prevent flipping already flipped or matched cards", async () => {
@@ -53,10 +56,14 @@ describe("App component", () => {
     const restartButton = screen.getByText(/Restart/i);
     expect(restartButton).toBeInTheDocument();
 
-    const beforeReset = [...screen.getAllByRole("button")].map((btn) => btn.textContent);
+    const beforeReset = [...screen.getAllByRole("button")].map(
+      (btn) => btn.textContent
+    );
     fireEvent.click(restartButton);
 
-    const afterReset = [...screen.getAllByRole("button")].map((btn) => btn.textContent);
+    const afterReset = [...screen.getAllByRole("button")].map(
+      (btn) => btn.textContent
+    );
     expect(afterReset).not.toEqual(beforeReset);
   });
 
@@ -78,12 +85,12 @@ describe("App component", () => {
           });
         }
         matched = true;
-
-    
       }
     }
 
-    expect(screen.getByText(/🎉 Congratulations! You matched all the fruits!/i)).toBeInTheDocument();
+    expect(
+      screen.getByText(/🎉 Congratulations! You matched all the fruits!/i)
+    ).toBeInTheDocument();
   });
 
   it("should update button text to 'Play Again' after win", async () => {
