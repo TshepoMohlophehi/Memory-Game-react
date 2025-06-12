@@ -1,27 +1,25 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import Card from "../components/Card";
 
 describe("Card component", () => {
   it("should display emoji when flipped", () => {
-    const { getByTestId } = render(
-      <Card emoji="🍎" isFlipped={true} onClick={() => {}} />
-    );
-    expect(getByTestId("card")).toHaveTextContent("🍎");
+    render(<Card emoji="🍎" isFlipped={true} onClick={() => {}} />);
+    const card = screen.getByTestId("card");
+    expect(card).toHaveTextContent("🍎");
   });
 
   it("should display a blank card when not flipped", () => {
-    const { getByTestId } = render(
-      <Card emoji="🍎" isFlipped={false} onClick={() => {}} />
-    );
-    expect(getByTestId("card")).not.toHaveTextContent();
+    render(<Card emoji="🍎" isFlipped={false} onClick={() => {}} />);
+    const card = screen.getByRole("button");
+    expect(card).toHaveTextContent("");
+    expect(card).not.toHaveTextContent("🍎");
   });
 
   it("should call onClick when clicked", () => {
     const handleClick = jest.fn();
-    const { getByTestId } = render(
-      <Card emoji="🍎" isFlipped={false} onClick={handleClick} />
-    );
-    fireEvent.click(getByTestId("card"));
+    render(<Card emoji="🍎" isFlipped={false} onClick={handleClick} />);
+    const card = screen.getByTestId("card");
+    fireEvent.click(card);
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 });
