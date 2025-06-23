@@ -21,3 +21,4 @@ export default function Card({ emoji, isFlipped, onClick }) {
     </div>
   );
 }
+// export default Card
