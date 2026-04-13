@@ -1,27 +1,28 @@
-export default function Card({ emoji, isFlipped, onClick }) {
+import "./Card.css";
+
+export default function Card({ emoji, isFlipped, onClick, isMatched }) {
   return (
     <div
-      className="card"
+      className={`card-scene ${isFlipped ? "is-flipped" : ""} ${isMatched ? "is-matched" : ""}`}
       role="button"
       data-testid="card"
       aria-pressed={isFlipped}
       aria-label={isFlipped ? `${emoji} card` : "Hidden card"}
       tabIndex={0}
       onClick={onClick}
-      style={{
-        width: "5rem",
-        height: "5rem",
-        fontSize: "2.5rem",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        border: "1px solid #ccc",
-        backgroundColor: isFlipped ? "#fff" : "#eee",
-        cursor: "pointer",
-        transition: "background-color 0.3s ease",
-      }}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
     >
-      {isFlipped ? emoji : " "}
+      <div className="card-inner">
+        {/* Back face */}
+        <div className="card-face card-back">
+          <span className="card-back-pattern">✦</span>
+        </div>
+
+        {/* Front face */}
+        <div className="card-face card-front">
+          <span className="card-emoji">{emoji}</span>
+        </div>
+      </div>
     </div>
   );
 }

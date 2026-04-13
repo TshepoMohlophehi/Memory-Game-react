@@ -1,31 +1,14 @@
 import { useEffect, useState } from "react";
 import { generateGrid } from "../utils/generateGrid";
 import Card from "./Card";
-
-const buttonStyle = {
-  padding: "10px 20px",
-  fontSize: "16px",
-  backgroundColor: "#1976d2",
-  color: "#fff",
-  border: "none",
-  borderRadius: "6px",
-  cursor: "pointer",
-  marginTop: "20px",
-};
-
-const congratsStyle = {
-  textAlign: "center",
-  fontSize: "24px",
-  fontWeight: "bold",
-  color: "#2e7d32",
-  marginBottom: "20px",
-};
+import "./GameBoard.css";
 
 export default function GameBoard({ setGameState }) {
   const [cards, setCards] = useState([]);
   const [flipped, setFlipped] = useState([]);
   const [matched, setMatched] = useState([]);
   const [hasStarted, setHasStarted] = useState(false);
+  const [moves, setMoves] = useState(0);
 
   const isGameWon = matched.length === cards.length && cards.length > 0;
 
@@ -34,16 +17,13 @@ export default function GameBoard({ setGameState }) {
   }, []);
 
   useEffect(() => {
-    if (isGameWon) {
-      setGameState("win");
-    }
+    if (isGameWon) setGameState("win");
   }, [isGameWon, setGameState]);
 
   useEffect(() => {
     if (flipped.length === 2) {
       const [first, second] = flipped;
       const isMatch = cards[first] === cards[second];
-
       const timeoutId = setTimeout(() => {
         if (isMatch) {
           setMatched((prev) => [...prev, first, second]);
@@ -52,8 +32,7 @@ export default function GameBoard({ setGameState }) {
           setGameState("no-match");
         }
         setFlipped([]);
-      }, 2000);
-
+      }, 1200);
       return () => clearTimeout(timeoutId);
     }
   }, [flipped, cards, setGameState]);
@@ -66,11 +45,10 @@ export default function GameBoard({ setGameState }) {
       isGameWon
     )
       return;
-
     setHasStarted(true);
     if (flipped.length === 0) setGameState("waiting");
-
     setFlipped((prev) => [...prev, index]);
+    if (flipped.length === 1) setMoves((m) => m + 1);
   };
 
   const resetGame = () => {
@@ -79,44 +57,67 @@ export default function GameBoard({ setGameState }) {
     setCards(generateGrid());
     setGameState("waiting");
     setHasStarted(false);
+    setMoves(0);
   };
 
+  const pairsFound = matched.length / 2;
+  const totalPairs = cards.length / 2;
+
   return (
-    <div className="d-flex flex-column align-items-center justify-content-center">
+    <div className="gameboard">
+      {/* Stats bar */}
+      <div className="gameboard-stats">
+        <div className="stat-chip">
+          <span className="stat-label">Pairs</span>
+          <span className="stat-value">{pairsFound} / {totalPairs}</span>
+        </div>
+        <div className="stat-chip">
+          <span className="stat-label">Moves</span>
+          <span className="stat-value">{moves}</span>
+        </div>
+      </div>
+
+      {/* Win banner */}
       {isGameWon && (
-        <div style={congratsStyle}>
-          🎉 Congratulations! You matched all the fruits!
+        <div className="win-banner">
+          <span className="win-emoji">🎉</span>
+          <span>You did it in <strong>{moves}</strong> moves!</span>
         </div>
       )}
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 5rem)",
-          gap: "0.5rem",
-          justifyContent: "center",
-          paddingTop: "20px",
-        }}
-      >
+      {/* Progress bar */}
+      <div className="progress-bar-track">
+        <div
+          className="progress-bar-fill"
+          style={{ width: cards.length > 0 ? `${(matched.length / cards.length) * 100}%` : "0%" }}
+        />
+      </div>
+
+      {/* Card grid */}
+      <div className="card-grid">
         {cards.map((emoji, index) => (
           <Card
             key={index}
             emoji={emoji}
             isFlipped={flipped.includes(index) || matched.includes(index)}
+            isMatched={matched.includes(index)}
             onClick={() => handleClick(index)}
           />
         ))}
       </div>
 
-      {hasStarted && (
-        <button
-          onClick={resetGame}
-          style={buttonStyle}
-          data-testid="restart-button"
-        >
-          {isGameWon ? "Play Again! 🎉" : "Restart Game 🔄"}
-        </button>
-      )}
+      {/* Buttons */}
+      <div className="gameboard-actions">
+        {!hasStarted ? (
+          <button className="btn btn-primary" onClick={resetGame} data-testid="restart-button">
+            Start Game 🚀
+          </button>
+        ) : (
+          <button className="btn btn-secondary" onClick={resetGame} data-testid="restart-button">
+            {isGameWon ? "Play Again 🎉" : "Restart 🔄"}
+          </button>
+        )}
+      </div>
     </div>
   );
 }

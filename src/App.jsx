@@ -1,40 +1,25 @@
 import React, { useState } from "react";
 import GameBoard from "./components/GameBoard";
 import ReactionGif from "./components/ReactionGif";
+import "./App.css";
 
 function App() {
   const [gameState, setGameState] = useState("waiting");
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        background: "linear-gradient(to bottom right, #74ebd5, #acb6e5)",
-        padding: "40px",
-        fontFamily: "Arial, sans-serif",
-        fontSize: "20px",
-        fontWeight: "bold",
-        boxSizing: "border-box",
-      }}
-    >
-      <h1
-        style={{ color: "#4CAF50", textAlign: "center", marginBottom: "40px" }}
-      >
-        Memory Game
-      </h1>
+    <div className="app-root">
+      <header className="app-header">
+        <div className="header-badge">✦ Memory Challenge ✦</div>
+        <h1 className="app-title">
+          <span className="title-icon">🧠</span> Brain Flip
+        </h1>
+        <p className="app-subtitle">Match all the pairs to win!</p>
+      </header>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          gap: "40px",
-          flexWrap: "wrap",
-        }}
-      >
+      <main className="app-main">
         <GameBoard setGameState={setGameState} />
         <ReactionGif gameState={gameState} />
-      </div>
+      </main>
     </div>
   );
 }

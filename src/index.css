@@ -1,17 +1,66 @@
-body {
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-deep:       #080b18;
+  --bg-mid:        #0f1530;
+  --card-back:     #1a2045;
+  --card-border:   #2a3060;
+  --card-front:    #ffffff;
+  --accent-cyan:   #00f5d4;
+  --accent-pink:   #f72585;
+  --accent-yellow: #ffe347;
+  --accent-purple: #7b2fff;
+  --text-primary:  #e8eaf6;
+  --text-muted:    #7986cb;
+  --success:       #00e676;
+  --error:         #ff5252;
+  --glow-cyan:     0 0 12px #00f5d4aa, 0 0 30px #00f5d455;
+  --glow-pink:     0 0 12px #f72585aa, 0 0 30px #f7258555;
+  --glow-yellow:   0 0 12px #ffe347aa, 0 0 30px #ffe34755;
+  --radius-card:   14px;
+  --radius-btn:    50px;
+  --transition:    0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+html, body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
+  min-height: 100vh;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: 'Nunito', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
 
-  background: linear-gradient(45deg, #292e36, #61dafb);
-  background-size: cover;
+body {
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(123, 47, 255, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%, rgba(0, 245, 212, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 40% at 50% 40%, rgba(247, 37, 133, 0.08) 0%, transparent 50%),
+    linear-gradient(180deg, var(--bg-deep) 0%, var(--bg-mid) 100%);
   background-attachment: fixed;
-  background-position: center;
+}
+
+/* Subtle dot grid overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
