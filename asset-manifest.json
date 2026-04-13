@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/Memory-Game-react/static/css/main.47dd766b.css",
-    "main.js": "/Memory-Game-react/static/js/main.c1759808.js",
+    "main.css": "/Memory-Game-react/static/css/main.798be16d.css",
+    "main.js": "/Memory-Game-react/static/js/main.1f3b1070.js",
     "static/js/453.58d809e6.chunk.js": "/Memory-Game-react/static/js/453.58d809e6.chunk.js",
     "static/media/loseReaction.gif": "/Memory-Game-react/static/media/loseReaction.a996e41c2601441dbbbb.gif",
     "static/media/winReaction.gif": "/Memory-Game-react/static/media/winReaction.29367cd6fee46b43d189.gif",
     "static/media/waitReaction.gif": "/Memory-Game-react/static/media/waitReaction.1f0aacdefb8488ce8d92.gif",
     "index.html": "/Memory-Game-react/index.html",
-    "main.47dd766b.css.map": "/Memory-Game-react/static/css/main.47dd766b.css.map",
-    "main.c1759808.js.map": "/Memory-Game-react/static/js/main.c1759808.js.map",
+    "main.798be16d.css.map": "/Memory-Game-react/static/css/main.798be16d.css.map",
+    "main.1f3b1070.js.map": "/Memory-Game-react/static/js/main.1f3b1070.js.map",
     "453.58d809e6.chunk.js.map": "/Memory-Game-react/static/js/453.58d809e6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.47dd766b.css",
-    "static/js/main.c1759808.js"
+    "static/css/main.798be16d.css",
+    "static/js/main.1f3b1070.js"
   ]
 }
